@@ -21,13 +21,18 @@ public class SimpleDb {
      * one transaction per line
      * @param path file path
      */
-    public static void loadTransactionFromFile(String path){
+    public void loadTransactionFromFile(String path){
         try {
             Stream<String> ss =  Files.lines(Paths.get(path));
-
+            ss.map(DbTool::createTransaction)
+              .forEach(transaction -> this.transactionD.add(transaction));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Transaction> getTransactionD(){
+        return transactionD;
     }
 
 
