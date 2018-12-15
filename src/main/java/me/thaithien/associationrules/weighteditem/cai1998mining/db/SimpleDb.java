@@ -11,6 +11,8 @@ public class SimpleDb {
     private Set<String> itemsI;
     private Map<String, Double> weightsW;
     private Map<String, Integer> supportCounts;
+    private long nTrans = 0;
+    private long maxLength = 0;
 
     public SimpleDb() {
         this.transactionD = new ArrayList();
@@ -28,10 +30,7 @@ public class SimpleDb {
         try {
             Stream<String> ss =  Files.lines(Paths.get(path));
             ss.map(DbTool::createTransaction)
-              .forEach(transaction -> {
-                  this.transactionD.add(transaction);
-                  supportCountTrans(transaction);
-              });
+              .forEach(this::addTransaction);
 
             transactionD.stream().parallel()
                     .flatMap(transaction -> transaction.getTransactionList().stream())
@@ -62,6 +61,20 @@ public class SimpleDb {
 
     public List<Transaction> getTransactionD(){
         return transactionD;
+    }
+
+    /**
+     * add new transaction to db
+     * @param transaction
+     */
+    public void addTransaction(Transaction transaction){
+        this.transactionD.add(transaction);
+        supportCountTrans(transaction);
+        nTrans += 1;
+        long transSize = transaction.getTransactionList().size();
+        if (maxLength < transSize){
+            maxLength = transSize;
+        }
     }
 
     public Double getWeight(String item){
