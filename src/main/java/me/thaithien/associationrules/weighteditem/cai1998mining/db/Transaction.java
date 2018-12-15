@@ -7,15 +7,15 @@ import java.util.List;
 public class Transaction {
     private final List<String> transationList;
 
-    public Transaction(List<String> transationList) {
-        this.transationList = ImmutableList.copyOf(transationList);
+    public Transaction(List<String> transactionList) {
+        this.transationList = ImmutableList.copyOf(transactionList);
     }
 
     public String get(int i){
         return transationList.get(i);
     }
 
-    public List<String> getTransationList(){
+    public List<String> getTransactionList(){
         return ImmutableList.copyOf(transationList);
     }
 }

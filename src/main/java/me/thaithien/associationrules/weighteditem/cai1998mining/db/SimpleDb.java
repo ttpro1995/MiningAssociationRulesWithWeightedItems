@@ -29,7 +29,7 @@ public class SimpleDb {
               .forEach(transaction -> this.transactionD.add(transaction));
 
             transactionD.stream().parallel()
-                    .flatMap(transaction -> transaction.getTransationList().stream())
+                    .flatMap(transaction -> transaction.getTransactionList().stream())
                     .forEach(item -> this.itemsI.add(item));
 
         } catch (IOException e) {
