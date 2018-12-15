@@ -10,11 +10,13 @@ public class SimpleDb {
     private List<Transaction> transactionD;
     private Set<String> itemsI;
     private Map<String, Double> weightsW;
+    private Map<String, Integer> supportCounts;
 
     public SimpleDb() {
         this.transactionD = new ArrayList();
         this.itemsI = new HashSet<>();
         this.weightsW = new HashMap<>();
+        this.supportCounts = new HashMap<>();
     }
 
     /**
@@ -26,7 +28,10 @@ public class SimpleDb {
         try {
             Stream<String> ss =  Files.lines(Paths.get(path));
             ss.map(DbTool::createTransaction)
-              .forEach(transaction -> this.transactionD.add(transaction));
+              .forEach(transaction -> {
+                  this.transactionD.add(transaction);
+                  supportCountTrans(transaction);
+              });
 
             transactionD.stream().parallel()
                     .flatMap(transaction -> transaction.getTransactionList().stream())
@@ -68,6 +73,28 @@ public class SimpleDb {
         return 0.0;
     }
 
+    public Integer getSupportCount(String item){
+        try{
+            return this.supportCounts.get(item);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
+    /**
+     * support count for item in transaction
+     * @param trans
+     */
+    private void supportCountTrans(Transaction trans){
+        Set<String> transItem = new HashSet(trans.getTransactionList());
+        transItem.stream().forEach(item -> {
+            if (this.supportCounts.containsKey(item)){
+                this.supportCounts.put(item, this.supportCounts.get(item) + 1);
+            } else {
+                this.supportCounts.put(item, 1);
+            }
+        });
+    }
 
 }

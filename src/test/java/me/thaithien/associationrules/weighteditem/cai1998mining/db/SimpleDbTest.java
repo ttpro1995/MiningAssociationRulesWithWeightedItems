@@ -39,4 +39,17 @@ public class SimpleDbTest {
         assertEquals(db.getWeight("4"), new Double(0.8));
         assertEquals(db.getWeight("5"), new Double(0.9));
     }
+
+    @Test
+    public void supportCountTrans(){
+        System.out.println("test supportCountTrans");
+        SimpleDb db = new SimpleDb();
+        db.loadTransactionFromFile("testdata/testtransactionlist.txt");
+        db.loadWeightFromFile("testdata/testweight.txt");
+        assertEquals(db.getSupportCount("1"), new Integer(4));
+        assertEquals(db.getSupportCount("2"), new Integer(5));
+        assertEquals(db.getSupportCount("3"), new Integer(2));
+        assertEquals(db.getSupportCount("4"), new Integer(6));
+        assertEquals(db.getSupportCount("5"), new Integer(7));
+    }
 }
