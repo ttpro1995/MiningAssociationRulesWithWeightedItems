@@ -26,4 +26,17 @@ public class SimpleDbTest {
         List<Transaction> transD = db.getTransactionD();
         assertEquals(transD.get(3).get(2), "4");
     }
+
+    @Test
+    public void loadWeightFromFile() {
+        System.out.println("test loadWeightFromFile");
+        SimpleDb db = new SimpleDb();
+        db.loadTransactionFromFile("testdata/testtransactionlist.txt");
+        db.loadWeightFromFile("testdata/testweight.txt");
+        assertEquals(db.getWeight("1"), new Double(0.1));
+        assertEquals(db.getWeight("2"), new Double(0.3));
+        assertEquals(db.getWeight("3"), new Double(0.4));
+        assertEquals(db.getWeight("4"), new Double(0.8));
+        assertEquals(db.getWeight("5"), new Double(0.9));
+    }
 }

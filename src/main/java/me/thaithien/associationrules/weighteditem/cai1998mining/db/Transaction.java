@@ -14,5 +14,9 @@ public class Transaction {
     public String get(int i){
         return transationList.get(i);
     }
+
+    public List<String> getTransationList(){
+        return ImmutableList.copyOf(transationList);
+    }
 }
 
