@@ -7,3 +7,6 @@ jdk:
 script:
   - gradle build
   - gradle test
+
+after_success:
+  - gradle jacocoTestReport coveralls

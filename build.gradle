@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
 group 'me.thaithien.associationrules.weighteditem'
@@ -14,4 +16,11 @@ repositories {
 dependencies {
     compile 'com.google.guava:guava:27.0.1-jre'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
