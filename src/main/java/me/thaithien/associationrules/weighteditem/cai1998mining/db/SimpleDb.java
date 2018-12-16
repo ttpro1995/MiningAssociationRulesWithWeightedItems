@@ -110,7 +110,7 @@ public class SimpleDb {
         });
     }
 
-    public long getnTransaction() {
+    public int getnTransaction() {
         return nTrans;
     }
 

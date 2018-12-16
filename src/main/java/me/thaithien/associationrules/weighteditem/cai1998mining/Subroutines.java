@@ -17,7 +17,7 @@ public class Subroutines {
      * @param weightmapW
      * @return
      */
-    public static Double calW(Set<String> itemsetY, int k, Map<String, Double> weightmapW, Set<String> allItem){
+    public static double calW(Set<String> itemsetY, int k, Map<String, Double> weightmapW, Set<String> allItem){
         Double result = new Double(0);
         for (String item: itemsetY){
             result += weightmapW.get(item);
@@ -44,5 +44,21 @@ public class Subroutines {
         }
 
         return result;
+    }
+
+    /**
+     * calculate k support bound of Y
+     * @param itemsetY
+     * @param k
+     * @param wminsup
+     * @param nTransaction
+     * @param weightmapW
+     * @param allItem
+     * @return
+     */
+    public static Double calB(Set<String> itemsetY, int k, double wminsup, int nTransaction, Map<String, Double> weightmapW, Set<String> allItem){
+        double w = calW(itemsetY, k, weightmapW, allItem);
+        double b = Math.ceil(wminsup * nTransaction / w);
+        return b;
     }
 }
