@@ -11,8 +11,8 @@ public class SimpleDb {
     private Set<String> itemsI;
     private Map<String, Double> weightsW;
     private Map<String, Integer> supportCounts;
-    private long nTrans = 0;
-    private long maxLength = 0;
+    private int nTrans = 0;
+    private int maxLength = 0;
 
     public SimpleDb() {
         this.transactionD = new ArrayList();
@@ -71,7 +71,7 @@ public class SimpleDb {
         this.transactionD.add(transaction);
         supportCountTrans(transaction);
         nTrans += 1;
-        long transSize = transaction.getTransactionList().size();
+        int transSize = transaction.getTransactionList().size();
         if (maxLength < transSize){
             maxLength = transSize;
         }
@@ -110,4 +110,19 @@ public class SimpleDb {
         });
     }
 
+    public long getnTransaction() {
+        return nTrans;
+    }
+
+    public int getMaxLength() {
+        return maxLength;
+    }
+
+    public Map<String, Double> getWeightMap(){
+        return new HashMap<>(weightsW);
+    }
+
+    public Set<String> getItemsI(){
+        return itemsI;
+    }
 }

@@ -4,7 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -51,5 +53,23 @@ public class SimpleDbTest {
         assertEquals(db.getSupportCount("3"), new Integer(2));
         assertEquals(db.getSupportCount("4"), new Integer(6));
         assertEquals(db.getSupportCount("5"), new Integer(7));
+    }
+
+    @Test
+    public void testForCopyingSet(){
+        Set<String> setA = new HashSet<>();
+        setA.add("a");
+        setA.add("b");
+        Set<String> setB = new HashSet<>(setA);
+        setB.add("c");
+        setB.remove("a");
+        System.out.println("set A");
+        for (String item: setA){
+            System.out.println(item);
+        }
+        System.out.println("set B");
+        for (String item: setB){
+            System.out.println(item);
+        }
     }
 }
